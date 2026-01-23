@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KennyLu | Personalización Premium en Sublimación</title>
+    <meta name="description" content="Personalización premium en tazas, termos, playeras y más. Calidad garantizada con diseño profesional.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+    <!-- Cursor personalizado -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Header mejorado -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-fire logo-icon"></i>
+                <span class="logo-text">Kenny<span class="logo-highlight">Lu</span></span>
+            </div>
+            
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#inicio" class="nav-link active">Inicio</a></li>
+                    <li class="nav-item"><a href="#productos" class="nav-link">Productos</a></li>
+                    
+                    <li class="nav-item"><a href="#proceso" class="nav-link">Proceso</a></li>
+                    <li class="nav-item"><a href="#galeria" class="nav-link">Galería</a></li>
+                    <li class="nav-item"><a href="#testimonios" class="nav-link">Testimonios</a></li>
+                    <li class="nav-item"><a href="#contacto" class="nav-link">Contacto</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <button class="btn-icon" id="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+             
+                <button class="btn-menu" id="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section Mejorada -->
+    <section class="hero" id="inicio">
+        <div class="hero-bg">
+            <div class="hero-pattern"></div>
+            <div class="hero-shape"></div>
+        </div>
+        <div class="container hero-container">
+            <div class="hero-content animate__animated animate__fadeInUp">
+                <h1 class="hero-title">
+                    <span class="hero-title-line">Ideas que cobran vida,</span>
+                    <span class="hero-title-line">creadas <span class="highlight">exclusivamente</span> para ti.</span>
+                </h1>
+                <p class="hero-subtitle">Sublimación de alta calidad en tazas, termos, textiles y más. Transformamos tus ideas en productos únicos y memorables.</p>
+                <div class="hero-buttons">
+                    <a href="#productos" class="btn-primary btn-hero">
+                        <span>Explorar Productos</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#contacto" class="btn-secondary btn-hero">
+                        <span>Cotización Rápida</span>
+                        <i class="fas fa-bolt"></i>
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" data-count="100">0</span>
+                        <span class="stat-label">Clientes Satisfechos</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-count="25">0</span>
+                        <span class="stat-label">Tipos de Productos</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-count="98">0</span>
+                        <span class="stat-label">% Satisfacción</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-image-container">
+                    <img src="img/img0.1.png" alt="Productos sublimados" class="hero-img-main">
+                    <div class="hero-image-badge">
+                        <i class="fas fa-award"></i>
+                        <span>Calidad Garantizada</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll down indicator -->
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+            <p>Desplázate para descubrir</p>
+        </div>
+    </section>
+
+    <!-- Sección de Productos Mejorada -->
+    <section class="products-section" id="productos">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Nuestra Colección</span>
+                <h2 class="section-title">Productos <span class="highlight">Destacados</span></h2>
+                <p class="section-description">Explora nuestros productos más populares, perfectos para regalos corporativos, eventos especiales o uso personal.</p>
+            </div>
+            
+            <!-- Filtros de productos -->
+            <div class="product-filters">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="tazas">Tazas</button>
+                <button class="filter-btn" data-filter="termos">Termos</button>
+                <button class="filter-btn" data-filter="textiles">Textiles</button>
+                <button class="filter-btn" data-filter="otros">Otros</button>
+            </div>
+            
+            <!-- Carrusel moderno -->
+            <div class="carousel-container">
+                <div class="carousel-track" id="carousel-track">
+                    <!-- Los slides se generan dinámicamente con JavaScript -->
+                </div>
+                <button class="carousel-btn carousel-btn-prev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-btn carousel-btn-next">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="carousel-dots" id="carousel-dots"></div>
+            </div>
+            
+            <!-- Características de productos -->
+            <div class="product-features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Diseño Personalizado</h3>
+                    <p>Creación gratuita de diseño con nuestro equipo de diseñadores.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Entrega Rápida</h3>
+                    <p>Producción en 24-48 horas y envío express disponible.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Garantía de Calidad</h3>
+                    <p>Impresión duradera que no se desvanece ni se raya.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Envío Nacional</h3>
+                    <p>Cobertura en toda Guatemala con seguimiento en tiempo real.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nueva Sección: Nuestro Proceso -->
+    <section class="process-section" id="proceso">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Cómo Trabajamos</span>
+                <h2 class="section-title">Nuestro <span class="highlight">Proceso</span></h2>
+                <p class="section-description">Transformamos tu idea en un producto único en solo 4 simples pasos.</p>
+            </div>
+            
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>Consulta y Diseño</h3>
+                        <p>Comparte tu idea y nuestro equipo crea un diseño personalizado.</p>
+                    </div>
+                    <div class="step-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>Aprobación Digital</h3>
+                        <p>Recibes una vista previa digital para aprobar antes de producir.</p>
+                    </div>
+                    <div class="step-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>Sublimación Profesional</h3>
+                        <p>Impresión de alta calidad con tecnología de última generación.</p>
+                    </div>
+                    <div class="step-icon">
+                        <i class="fas fa-print"></i>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <h3>Entrega y Satisfacción</h3>
+                        <p>Recibes tu producto terminado, listo para impresionar.</p>
+                    </div>
+                    <div class="step-icon">
+                        <i class="fas fa-box-open"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nueva Sección: Video Destacado -->
+    <section class="video-section" id="video">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Experiencia Visual</span>
+                <h2 class="section-title">Mira la <span class="highlight">Magia</span></h2>
+                <p class="section-description">Descubre cómo transformamos productos simples en obras de arte personalizadas.</p>
+            </div>
+            
+            <div class="video-container animate-on-scroll">
+                <video controls playsinline preload="metadata" poster="img/img20.jpeg">
+                    <source src="video1.mp4" type="video/mp4">
+                    Tu navegador no soporta la reproducción de video.
+                </video>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galería Mejorada -->
+    <section class="gallery-section" id="galeria">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Nuestro Trabajo</span>
+                <h2 class="section-title">Galería de <span class="highlight">Proyectos</span></h2>
+                <p class="section-description">Mira algunos de nuestros trabajos recientes para clientes satisfechos.</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="img/termo.jpg" alt="Termos personalizados">
+                    <div class="gallery-overlay">
+                        <h3>Termos Personalizados</h3>
+                        <p>Personalización a tu gusto</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="img/gorra.jpg" alt="Gorras sublimadas">
+                    <div class="gallery-overlay">
+                        <h3>Gorras Personalizadas</h3>
+                        <p>Elige tu estilo para personalizar</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="img/playera.jpg" alt="Playeras personalizadas">
+                    <div class="gallery-overlay">
+                        <h3>Playeras para Eventos</h3>
+                        <p>Diseños únicos para ocasiones especiales</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="img/tazas.jpg" alt="Tazas personalizadas">
+                    <div class="gallery-overlay">
+                        <h3>Tazas Personalizadas</h3>
+                        <p>Regalos de alta calidad</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="img/pachon.jpg" alt="Pachones personalizados">
+                    <div class="gallery-overlay">
+                        <h3>Pachones</h3>
+                        <p>Acabado premium resistente</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="img/taza.jpg" alt="Tazas térmicas">
+                    <div class="gallery-overlay">
+                        <h3>Tazas Térmicas</h3>
+                        <p>Doble pared para bebidas calientes/frías</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nueva Sección: Testimonios -->
+    <section class="testimonials-section" id="testimonios">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Lo que dicen nuestros clientes</span>
+                <h2 class="section-title">Testimonios <span class="highlight">Reales</span></h2>
+                <p class="section-description">Clientes satisfechos que confían en nuestra calidad y servicio.</p>
+            </div>
+            
+            <div class="testimonials-slider">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <i class="fas fa-quote-left quote-icon"></i>
+                        <p class="testimonial-text">"Buscábamos una prenda que fuera cómoda para los niños y de alta durabilidad. El resultado superó nuestras expectativas: telas resistentes y un diseño que refleja la alegría de nuestro colegio. Una atención impecable de principio a fin."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="img/creciendo.jpeg" alt="Cliente">
+                        <div class="author-info">
+                            <h4>Karina Espinoza</h4>
+                            <p>Directora del Colegio, Creciendo Juntos.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <i class="fas fa-quote-left quote-icon"></i>
+                        <p class="testimonial-text">"Busco aliados que reflejen la innovación y calidad de nuestra marca. Los productos para nuestro equipo no solo lucen profesionales, sino que proyectan la identidad de Pinecloud Technology a la perfección. La atención y el detalle en la impresión superaron mis expectativas."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="img/profile.jpeg" alt="Cliente">
+                        <div class="author-info">
+                            <h4>Erasmo Jim</h4>
+                            <p>Fundador de Pinecloud Technology</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <i class="fas fa-quote-left quote-icon"></i>
+                        <p class="testimonial-text">"Las tazas personalizadas para el personal de la clínica fueron el detalle ideal para reconocer su labor. La calidad de los materiales es excelente y el diseño es muy profesional."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="img/Profile2.jpeg" alt="Cliente">
+                        <div class="author-info">
+                            <h4>Blanca de Ventura</h4>
+                            <p>Personal de Hospital- Enfermera</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Contacto Mejorada -->
+    <section class="contact-section" id="contacto">
+        <div class="container">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="section-header">
+                        <span class="section-subtitle">Contáctanos</span>
+                        <h2 class="section-title">¿Listo para <span class="highlight">personalizar</span>?</h2>
+                        <p class="section-description">Solicita una cotización gratuita y transforma tus ideas en productos únicos.</p>
+                    </div>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Ubicación</h4>
+                                <p>Zona 1 de Mixco, Guatemala</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Teléfono</h4>
+                                <p>+502 4740 8104</p>
+                            </div>
+                        </div>
+                        
+<div class="contact-item">
+  <div class="contact-icon">
+    <i class="fas fa-envelope"></i>
+  </div>
+  <div class="contact-text">
+    <h4>Correo Electrónico</h4>
+    <p>
+      <a
+        href="mailto:kennylu.personalizados@gmail.com?subject=Consulta%20KennyLu"
+        class="contact-link"
+      >
+        kennylu.personalizados@gmail.com
+      </a>
+    </p>
+  </div>
+</div>
+
+
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Horario de Atención</h4>
+                                <p>Lun-Vie: 8:00 - 16:00 Hrs.</p>
+                                <p>Sáb: 9:00  - 12:00 Hrs.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                
+                <div class="contact-form-container">
+                    <form class="contact-form" id="contact-form" action="https://formspree.io/f/mvzkkkkz" method="POST">
+    <div class="form-group">
+        <input type="text" name="nombre" placeholder="Nombre completo" required>
+        <i class="fas fa-user form-icon"></i>
+    </div>
+    
+    <div class="form-group">
+        <input type="email" name="email" placeholder="Correo electrónico" required>
+        <i class="fas fa-envelope form-icon"></i>
+    </div>
+    
+    <div class="form-group">
+        <input type="tel" name="telefono" placeholder="Teléfono" required>
+        <i class="fas fa-phone form-icon"></i>
+    </div>
+    
+    <div class="form-group">
+        <select name="producto" required>
+            <option value="">¿Qué producto te interesa?</option>
+            <option value="tazas">Tazas</option>
+            <option value="termos">Termos</option>
+            <option value="playeras">Playeras</option>
+            <option value="gorras">Gorras</option>
+            <option value="otros">Otros productos</option>
+        </select>
+        <i class="fas fa-box form-icon"></i>
+    </div>
+    
+    <div class="form-group">
+        <textarea name="mensaje" rows="5" placeholder="Describe tu proyecto o idea..." required></textarea>
+        <i class="fas fa-edit form-icon"></i>
+    </div>
+    
+    <button type="submit" class="btn-primary btn-submit">
+        <span id="submit-text">Enviar Solicitud</span>
+        <i class="fas fa-paper-plane"></i>
+    </button>
+</form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Mejorado -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="logo">
+                        <i class="fas fa-fire logo-icon"></i>
+                        <span class="logo-text">Kenny<span class="logo-highlight">Lu</span></span>
+                    </div>
+                    <p class="footer-description">Especialistas en sublimación de alta calidad. Transformamos tus ideas en productos únicos y memorables.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 class="footer-title">Enlaces Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#productos">Productos</a></li>
+                        <li><a href="#proceso">Proceso</a></li>
+                        <li><a href="#galeria">Galería</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 class="footer-title">Productos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#productos">Tazas Personalizadas</a></li>
+                        <li><a href="#productos">Termos Sublimados</a></li>
+                        <li><a href="#productos">Playeras con Diseño</a></li>
+                        <li><a href="#productos">Gorras Personalizadas</a></li>
+                        <li><a href="#productos">Productos Corporativos</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 class="footer-title">Suscríbete</h3>
+                    <p class="footer-text">Recibe ofertas exclusivas y novedades sobre nuestros productos.</p>
+                    
+   <form class="newsletter-form" action="https://formspree.io/f/mvzkkkkz" method="POST">
+    <input type="email" name="email" placeholder="Tu correo electrónico" required>
+    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+</form>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2026 <strong>KennyLu</strong>. Todos los derechos reservados.</p>
+                <div class="footer-legal">
+                    <a href="#">Política de Privacidad</a>
+                    <a href="#">Términos de Servicio</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botón flotante de WhatsApp -->
+        <a href="https://wa.me/50247408104" class="whatsapp-float" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
