@@ -3,7 +3,6 @@ const config = {
   autoCarousel: true,
   carouselInterval: 5000,
   animationDuration: 300,
-  enableDarkMode: true,
   enableCursorEffects: true
 };
 
@@ -79,37 +78,6 @@ window.addEventListener('scroll', () => {
   
   lastScrollTop = scrollTop;
 });
-
-// ============ TOGGLE DARK MODE ============
-if (config.enableDarkMode) {
-  const themeToggle = document.getElementById('theme-toggle');
-  const themeIcon = themeToggle.querySelector('i');
-  
-  // Verificar preferencia del sistema
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-  
-  // Cargar tema guardado
-  const savedTheme = localStorage.getItem('theme') || 'light';
-  if (savedTheme === 'dark') {
-    document.body.classList.add('dark-mode');
-    themeIcon.classList.remove('fa-moon');
-    themeIcon.classList.add('fa-sun');
-  }
-  
-  themeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    
-    if (document.body.classList.contains('dark-mode')) {
-      themeIcon.classList.remove('fa-moon');
-      themeIcon.classList.add('fa-sun');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      themeIcon.classList.remove('fa-sun');
-      themeIcon.classList.add('fa-moon');
-      localStorage.setItem('theme', 'light');
-    }
-  });
-}
 
 // ============ CARRUSEL MEJORADO ============
 class Carousel {
@@ -961,5 +929,3 @@ Hola 👋, estoy interesado en este producto:
   const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
   window.open(url, "_blank");
 });
-
-
