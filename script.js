@@ -6,6 +6,27 @@ const config = {
   enableCursorEffects: true
 };
 
+// ============ SCROLL FLUIDO (LENIS) ============
+let lenis;
+if (typeof Lenis !== 'undefined') {
+    lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Efecto de inercia suave
+        direction: 'vertical',
+        gestureDirection: 'vertical',
+        smooth: true,
+        mouseMultiplier: 1,
+        smoothTouch: false, // False en móviles para mantener la sensación nativa táctil
+        touchMultiplier: 2,
+    });
+
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+}
+
 // ============ CURSOR PERSONALIZADO ============
 if (config.enableCursorEffects) {
   const cursorDot = document.querySelector('.cursor-dot');
@@ -131,7 +152,7 @@ class Carousel {
         id: 1,
         name: 'Taza Premium Cerámica',
         description: 'Alta calidad con diseño a todo color',
-        price: 'Q50',
+        price: 'Q0',
         image: 'img/taza.jpg',
        
         category: 'tazas',
@@ -141,7 +162,7 @@ class Carousel {
         id: 2,
         name: 'Termo Acero Inoxidable',
         description: 'Mantiene temperatura por 12 horas',
-        price: 'Q75',
+        price: 'Q0',
         image: 'img/termo.jpg',
         category: 'termos',
         badge: 'Nuevo'
@@ -150,7 +171,7 @@ class Carousel {
         id: 3,
         name: 'Playera Algodón Premium',
         description: '100% algodón, impresión duradera',
-        price: 'Q100',
+        price: 'Q0',
         image: 'img/playera.jpg',
         category: 'textiles',
         badge: 'Oferta'
@@ -159,7 +180,7 @@ class Carousel {
         id: 4,
         name: 'Gorra Deportiva',
         description: 'Ajustable, diseño frontal y lateral',
-        price: 'Q65',
+        price: 'Q0',
         image: 'img/gorra.jpg',
         category: 'otros',
         badge: 'Popular'
@@ -168,7 +189,7 @@ class Carousel {
         id: 5,
         name: 'Pachón Térmico',
         description: 'Doble pared, diseño mate premium',
-        price: 'Q100',
+        price: 'Q00',
         image: 'img/termo.jpg',
         category: 'termos',
         badge: 'Exclusivo'
@@ -177,7 +198,7 @@ class Carousel {
         id: 6,
         name: 'Set de 4 Tazas',
         description: 'Perfecto para regalos corporativos o personales',
-        price: 'Q180',
+        price: 'Q0',
         image: 'img/tazas.jpg',
         category: 'tazas',
         badge: 'Combo'
@@ -770,10 +791,15 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     const headerHeight = header.offsetHeight;
     const targetPosition = targetElement.offsetTop - headerHeight;
     
-    window.scrollTo({
-      top: targetPosition,
-      behavior: 'smooth'
-    });
+    // Usar Lenis si está disponible, si no, usar nativo
+    if (typeof lenis !== 'undefined') {
+        lenis.scrollTo(targetElement, { offset: -headerHeight });
+    } else {
+        window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+        });
+    }
     
     // Actualizar enlace activo
     document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
