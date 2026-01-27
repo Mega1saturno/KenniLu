@@ -71,8 +71,15 @@
 }
 
 html {
-    scroll-behavior: smooth;
     scroll-padding-top: 80px;
+}
+
+/* Configuración recomendada para Lenis Scroll */
+html.lenis {
+    height: auto;
+}
+.lenis.lenis-smooth {
+    scroll-behavior: auto;
 }
 
 body {
