@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelo 3D | KennyLu</title>
+    <meta name="description" content="Visualiza nuestros productos en 3D.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Librerías 3D -->
+    <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/fflate@0.8.0/umd/index.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/FBXLoader.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/geometries/DecalGeometry.js"></script>
+</head>
+<body>
+    <!-- Cursor personalizado -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html" style="text-decoration: none; display: flex; align-items: center; color: inherit;">
+                    <i class="fas fa-fire logo-icon"></i>
+                    <span class="logo-text">Kenny<span class="logo-highlight">Lu</span></span>
+                </a>
+            </div>
+            
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="index.html#inicio" class="nav-link">Inicio</a></li>
+                    <li class="nav-item"><a href="index.html#productos" class="nav-link">Productos</a></li>
+                    <li class="nav-item"><a href="modelo3d.html" class="nav-link active">Modelo 3D</a></li>
+                    <li class="nav-item"><a href="index.html#proceso" class="nav-link">Proceso</a></li>
+                    <li class="nav-item"><a href="index.html#galeria" class="nav-link">Galería</a></li>
+                    <li class="nav-item"><a href="index.html#contacto" class="nav-link">Contacto</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <button class="btn-icon" id="cart-btn"><i class="fas fa-shopping-cart"></i><span class="cart-count">0</span></button>
+                <button class="btn-menu" id="menu-toggle"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido Principal: Modelo 3D -->
+    <section class="model-3d-page">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Visualización Interactiva</span>
+                <h2 class="section-title">Modelo de <span class="highlight">Diseño 3D</span></h2>
+                <p class="section-description">Explora nuestros diseños en tres dimensiones en esta página dedicada.</p>
+            </div>
+            
+            <!-- Área del visor 3D -->
+            <div class="customizer-wrapper">
+                
+                <!-- Contenedor del Canvas 3D -->
+                <div id="canvas-container">
+                    <div id="loading-text" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #888;">Cargando modelo...</div>
+                </div>
+
+                <!-- Panel de Controles -->
+                <div class="controls-panel">
+                    <h3 style="margin-bottom: 20px; color: var(--dark);"><i class="fas fa-sliders-h"></i> Personalización</h3>
+                    
+                    <!-- Selección de Producto -->
+                    <div class="control-group">
+                        <label>1. Elige el Producto</label>
+                        <select id="product-select">
+                            <option value="taza">Taza</option>
+                            <option value="termo">Termo</option>
+                            <option value="gorras">Gorras</option>
+                            <option value="playera">Playera</option>
+                        </select>
+                    </div>
+
+                    <!-- Color Base -->
+                    <div class="control-group">
+                        <label>2. Color del Producto</label>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <input type="color" id="base-color" value="#ffffff" style="width: 50px; height: 40px; border: none; cursor: pointer;">
+                            <span style="font-size: 0.9rem; color: #666;">Clic para cambiar color</span>
+                        </div>
+                    </div>
+
+                    <!-- Subir Imagen -->
+                    <div class="control-group">
+                        <label>3. Sube tu Diseño</label>
+                        <input type="file" id="image-upload" accept="image/*">
+                    </div>
+
+                    <!-- Ajustes de Imagen -->
+                    <div id="image-controls">
+                        <label style="display: block; margin-bottom: 15px; font-weight: 600;">4. Ajustar Diseño</label>
+                        
+                        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                            <div style="flex: 1;">
+                                <label style="font-size: 0.9rem;">Ancho</label>
+                                <input type="range" id="scale-x-slider" min="0.2" max="5" step="0.1" value="1" style="width: 100%;">
+                            </div>
+                            <div style="flex: 1;">
+                                <label style="font-size: 0.9rem;">Alto</label>
+                                <input type="range" id="scale-y-slider" min="0.2" max="5" step="0.1" value="1" style="width: 100%;">
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 15px; display: none;">
+                            <label style="font-size: 0.9rem;">Posición Horizontal</label>
+                            <input type="range" id="pos-x-slider" min="0" max="1" step="0.01" value="0.5" style="width: 100%;">
+                        </div>
+
+                        <div style="margin-bottom: 15px; display: none;">
+                            <label style="font-size: 0.9rem;">Posición Vertical</label>
+                            <input type="range" id="pos-y-slider" min="0" max="1" step="0.01" value="0.5" style="width: 100%;">
+                        </div>
+
+                        <div style="margin-bottom: 15px;">
+                            <label style="font-size: 0.9rem;">Rotación (Girar)</label>
+                            <input type="range" id="rotation-slider" min="0" max="6.28" step="0.1" value="0" style="width: 100%;">
+                        </div>
+                    </div>
+
+                    <button onclick="alert('¡Diseño guardado! Contáctanos para finalizar tu pedido.')" class="btn-primary" style="width: 100%; margin-top: 10px;">
+                        <i class="fas fa-check"></i> Solicitar este Diseño
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Simplificado -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="logo">
+                        <span class="logo-text">Kenny<span class="logo-highlight">Lu</span></span>
+                    </div>
+                    <p class="footer-description">Especialistas en sublimación de alta calidad.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 class="footer-title">Navegación</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Volver al Inicio</a></li>
+                        <li><a href="index.html#productos">Ver Productos</a></li>
+                        <li><a href="index.html#contacto">Contactar</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3 class="footer-title">Contacto</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">kennylu.personalizados@gmail.com</a></li>
+                        <li><a href="#">+502 0000-0000</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2026 <strong>KennyLu</strong>. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    
+    <!-- Lógica del Visor 3D -->
+    <script>
+        // Variables Globales
+        let scene, camera, renderer, controls;
+        let currentMesh;
+        let textureLoader;
+        let gltfLoader; // Variable para el cargador de modelos
+        let fbxLoader;  // Variable para el cargador FBX
+        
+        // Variables para Decals (Calcomanías)
+        let decalMesh = null;
+        let decalTexture = null;
+        let targetMesh = null; // La malla donde se pegará el diseño
+        let decalParams = {
+            position: new THREE.Vector3(),
+            orientation: new THREE.Euler(),
+            scale: 1
+        };
+        
+        // Variables para interacción con mouse (Drag & Drop)
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+        let isDragging = false;
+        let dragStartUV = new THREE.Vector2();
+        let dragStartSliderValues = { x: 0, y: 0 };
+
+        // Manejador de errores global para ver qué falla
+        window.onerror = function(msg, url, lineNo, columnNo, error) {
+            const loadingText = document.getElementById('loading-text');
+            if (loadingText) {
+                loadingText.style.display = 'block';
+                loadingText.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ' + msg;
+                loadingText.style.color = '#dc3545';
+            }
+            return false;
+        };
+
+        // Inicialización
+        function init3D() {
+            try {
+                if (typeof THREE === 'undefined') {
+                    throw new Error("La librería 3D no se pudo cargar. Revisa tu conexión.");
+                }
+
+                const container = document.getElementById('canvas-container');
+                
+                // Escena
+                scene = new THREE.Scene();
+                scene.background = new THREE.Color(0xeeeeee); // Fondo gris claro para contraste
+                scene.background = new THREE.Color(0xf5f7ff); // Fondo azulado muy claro
+
+                // Cámara
+                camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+                camera.position.set(0, 0, 4);
+
+                // Renderizador
+                renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                renderer.setSize(container.clientWidth, container.clientHeight);
+                renderer.setPixelRatio(window.devicePixelRatio); // IMPORTANTE: Alta resolución
+                renderer.shadowMap.enabled = true;
+                container.appendChild(renderer.domElement);
+
+                // Controles de órbita (Mouse)
+                if (typeof THREE.OrbitControls !== 'undefined') {
+                    controls = new THREE.OrbitControls(camera, renderer.domElement);
+                    controls.enableDamping = true;
+                    controls.dampingFactor = 0.05;
+                } else {
+                    console.warn('OrbitControls no cargado correctamente');
+                }
+
+                // Eventos para arrastrar la imagen sobre el modelo
+                const canvas = renderer.domElement;
+                canvas.addEventListener('mousedown', onMouseDown);
+                canvas.addEventListener('mousemove', onMouseMove);
+                canvas.addEventListener('mouseup', onMouseUp);
+                canvas.addEventListener('mouseleave', onMouseUp);
+                
+            } catch (error) {
+                console.error("Error iniciando 3D:", error);
+                document.getElementById('loading-text').innerText = "Error al cargar el visor 3D.";
+                return;
+            }
+
+            // Iluminación
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+
+            const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            dirLight.position.set(5, 5, 5);
+            dirLight.castShadow = true;
+            scene.add(dirLight);
+
+            // Loader de texturas
+            textureLoader = new THREE.TextureLoader();
+            
+            // Loader de modelos GLB/GLTF
+            gltfLoader = new THREE.GLTFLoader();
+            
+            // Loader de modelos FBX
+            fbxLoader = new THREE.FBXLoader();
+
+            // Cargar modelo inicial (Taza)
+            createProduct('taza');
+
+            // Ocultar texto de carga
+            document.getElementById('loading-text').style.display = 'none';
+
+            // Loop de animación
+            animate();
+
+            // Ajustar al redimensionar ventana
+            window.addEventListener('resize', onWindowResize);
+        }
+
+        // Función para crear geometrías básicas simulando productos
+        function createProduct(type) {
+            // Intenta cargar el archivo real (GLB o FBX)
+            // Ejemplo: loadRealModel('modelos/taza.fbx', type);
+            if (type === 'taza') {
+                loadRealModel('modelos/Cup.fbx', type);
+                return;
+            }
+            if (type === 'playera') {
+                loadRealModel('modelos/t-shirt.fbx', type);
+                return;
+            }
+
+            if (currentMesh) scene.remove(currentMesh);
+            if (decalMesh) scene.remove(decalMesh);
+            decalMesh = null;
+
+            let geometry, material;
+            const color = document.getElementById('base-color').value;
+
+            // Material base
+            material = new THREE.MeshStandardMaterial({ 
+                color: color,
+                roughness: 0.3,
+                metalness: 0.1
+            });
+
+            if (type === 'taza') {
+                // Cilindro simple para taza
+                geometry = new THREE.CylinderGeometry(0.8, 0.8, 1.8, 32);
+            } else if (type === 'termo') {
+                // Cilindro más alto y delgado
+                geometry = new THREE.CylinderGeometry(0.6, 0.6, 2.5, 32);
+            } else if (type === 'gorras') {
+                // Semiesfera para simular gorra
+                geometry = new THREE.SphereGeometry(0.9, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2);
+            } else if (type === 'playera') {
+                // Caja delgada para simular área de impresión de playera
+                geometry = new THREE.BoxGeometry(1.6, 2.0, 0.1);
+            }
+
+            currentMesh = new THREE.Mesh(geometry, material);
+            currentMesh.castShadow = true;
+            scene.add(currentMesh);
+            targetMesh = currentMesh;
+
+            // Si hay textura cargada, intentar proyectarla al frente
+            if (decalTexture) {
+                updateDecal(new THREE.Vector3(0, 0, 1), new THREE.Vector3(0, 0, 1));
+            }
+        }
+
+        // Función para cargar modelos reales (.glb)
+        function loadRealModel(path, typeFallback) {
+            const extension = path.split('.').pop().toLowerCase();
+
+            const onLoad = function (object) {
+                if (currentMesh) scene.remove(currentMesh);
+                if (decalMesh) scene.remove(decalMesh);
+                decalMesh = null;
+                
+                // En GLTF el objeto está en .scene, en FBX es el objeto directo
+                currentMesh = (extension === 'glb' || extension === 'gltf') ? object.scene : object;
+                
+                // --- AUTO-AJUSTE INTELIGENTE DE TAMAÑO Y POSICIÓN ---
+                // 1. Resetear transformaciones
+                currentMesh.scale.set(1, 1, 1);
+                currentMesh.position.set(0, 0, 0);
+                
+                // 2. Calcular dimensiones reales del modelo
+                const box = new THREE.Box3().setFromObject(currentMesh);
+                const size = box.getSize(new THREE.Vector3());
+                const center = box.getCenter(new THREE.Vector3());
+                
+                // 3. Calcular escala para que mida aprox 3.5 unidades (tamaño ideal para la cámara)
+                const maxDim = Math.max(size.x, size.y, size.z) || 1;
+                const targetSize = 3.5; 
+                const scaleFactor = targetSize / maxDim;
+                
+                currentMesh.scale.set(scaleFactor, scaleFactor, scaleFactor);
+                
+                // 4. Centrar el objeto en la escena (0,0,0)
+                // Compensamos el desplazamiento del centro original escalado
+                currentMesh.position.x = -center.x * scaleFactor;
+                currentMesh.position.y = -center.y * scaleFactor; 
+                currentMesh.position.z = -center.z * scaleFactor;
+
+                currentMesh.traverse(function (node) {
+                    if (node.isMesh) {
+                        node.castShadow = true;
+                        node.receiveShadow = true;
+                        
+                        // Asegurar que el material soporte colores y texturas
+                        // Usamos FrontSide para evitar que se vea el interior
+                        const oldMat = Array.isArray(node.material) ? node.material[0] : node.material;
+                        const newMat = new THREE.MeshStandardMaterial({
+                            color: document.getElementById('base-color').value,
+                            roughness: 0.3,
+                            metalness: 0.1,
+                            side: THREE.FrontSide // Solo cara frontal para evitar "ver adentro"
+                        });
+                        node.material = newMat;
+                        
+                        // Asignamos como objetivo para el decal (tomamos el primero que encontremos o el más grande)
+                        if (!targetMesh || (node.geometry && node.geometry.attributes.position.count > targetMesh.geometry.attributes.position.count)) {
+                            targetMesh = node;
+                        }
+                    }
+                });
+
+                scene.add(currentMesh);
+
+                // Reaplicar decal si existe
+                if (decalTexture) {
+                    // Intentar ponerlo al frente
+                    updateDecal(new THREE.Vector3(0, 0, currentMesh.position.z + 1), new THREE.Vector3(0, 0, 1));
+                }
+            };
+
+            const onError = function (error) {
+                console.warn('No se encontró el modelo 3D real (' + path + '), usando forma básica.', error);
+                createGeometryFallback(typeFallback);
+            };
+
+            // Seleccionar el cargador adecuado
+            if (extension === 'fbx') {
+                fbxLoader.load(path, onLoad, undefined, onError);
+            } else {
+                gltfLoader.load(path, onLoad, undefined, onError);
+            }
+        }
+
+        // Función de respaldo (la lógica original de geometrías)
+        function createGeometryFallback(type) {
+            if (currentMesh) scene.remove(currentMesh);
+            let geometry, material;
+            const color = document.getElementById('base-color').value;
+            material = new THREE.MeshStandardMaterial({ color: color, roughness: 0.3, metalness: 0.1 });
+
+            if (type === 'taza') geometry = new THREE.CylinderGeometry(0.8, 0.8, 1.8, 32);
+            else if (type === 'termo') geometry = new THREE.CylinderGeometry(0.6, 0.6, 2.5, 32);
+            else if (type === 'gorras') geometry = new THREE.SphereGeometry(0.9, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2);
+            else if (type === 'playera') geometry = new THREE.BoxGeometry(1.6, 2.0, 0.1);
+
+            currentMesh = new THREE.Mesh(geometry, material);
+            currentMesh.castShadow = true;
+            scene.add(currentMesh);
+            targetMesh = currentMesh;
+            if (decalTexture) {
+                 updateDecal(new THREE.Vector3(0, 0, 1), new THREE.Vector3(0, 0, 1));
+            }
+        }
+
+        // Manejar subida de imagen
+        document.getElementById('image-upload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const image = new Image();
+                    image.src = event.target.result;
+                    image.onload = function() {
+                        decalTexture = new THREE.Texture(image);
+                        decalTexture.needsUpdate = true;
+                        // Configuración de Alta Calidad
+                        decalTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+                        decalTexture.minFilter = THREE.LinearFilter;
+                        decalTexture.magFilter = THREE.LinearFilter;
+                        
+                        // Colocar decal en el centro inicial
+                        updateDecal(new THREE.Vector3(0, 0, 1), new THREE.Vector3(0, 0, 1));
+                        
+                        // Activar controles
+                        document.getElementById('image-controls').style.opacity = '1';
+                        document.getElementById('image-controls').style.pointerEvents = 'auto';
+                    };
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Función principal para crear/actualizar el Decal
+        function updateDecal(position, normal) {
+            if (!decalTexture || !targetMesh) return;
+
+            // Guardar posición actual si no se provee nueva
+            if (position) decalParams.position.copy(position);
+            
+            // Orientación
+            if (normal) {
+                const dummy = new THREE.Object3D();
+                dummy.position.copy(decalParams.position);
+                dummy.lookAt(decalParams.position.clone().add(normal));
+                decalParams.orientation.copy(dummy.rotation);
+            }
+
+            // Escala y Rotación desde sliders
+            const scaleX = parseFloat(document.getElementById('scale-x-slider').value);
+            const scaleY = parseFloat(document.getElementById('scale-y-slider').value);
+            const rotationSlider = parseFloat(document.getElementById('rotation-slider').value);
+            
+            const size = new THREE.Vector3(scaleX, scaleY, 2.0); // Aumentado Z para evitar recortes en curvas
+
+            // Eliminar anterior
+            if (decalMesh) {
+                scene.remove(decalMesh);
+                decalMesh.geometry.dispose();
+            }
+
+            // Material del Decal
+            const material = new THREE.MeshPhongMaterial({
+                map: decalTexture,
+                transparent: true,
+                depthTest: true,
+                depthWrite: false,
+                polygonOffset: true,
+                polygonOffsetFactor: -10, // Mayor prioridad para evitar que se vea "adentro"
+                shininess: 30,
+                specular: 0x222222,
+                side: THREE.DoubleSide // Visible por ambos lados por seguridad
+            });
+
+            // Crear geometría decal
+            const orientation = new THREE.Euler().copy(decalParams.orientation);
+            
+            // Rotar la textura en sí misma
+            decalTexture.center.set(0.5, 0.5);
+            decalTexture.rotation = rotationSlider;
+
+            const geometry = new THREE.DecalGeometry(targetMesh, decalParams.position, orientation, size);
+            
+            decalMesh = new THREE.Mesh(geometry, material);
+            scene.add(decalMesh);
+        }
+
+        // --- LÓGICA DE ARRASTRAR Y SOLTAR (DRAG & DROP) ---
+        
+        function getIntersects(event, element) {
+            const rect = element.getBoundingClientRect();
+            const clientX = event.clientX;
+            const clientY = event.clientY;
+            
+            mouse.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+            mouse.y = -((clientY - rect.top) / rect.height) * 2 + 1;
+            
+            raycaster.setFromCamera(mouse, camera);
+            // Si ya identificamos el cuerpo principal (targetMesh), solo buscamos intersecciones con él.
+            // Esto evita que la imagen se pegue en el asa u otras partes.
+            if (targetMesh) {
+                return raycaster.intersectObject(targetMesh, true);
+            }
+            return raycaster.intersectObject(currentMesh, true); // Fallback
+        }
+
+        function onMouseDown(event) {
+            if (!decalTexture) return;
+            
+            const intersects = getIntersects(event, renderer.domElement);
+            if (intersects.length > 0) {
+                isDragging = true;
+                if (controls) controls.enabled = false;
+                document.body.style.cursor = 'grabbing';
+                
+                // Mover decal al punto de clic inmediatamente
+                const hit = intersects[0];
+                updateDecal(hit.point, hit.face.normal);
+            }
+        }
+
+        function onMouseMove(event) {
+            if (!isDragging || !decalTexture) return;
+            
+            const intersects = getIntersects(event, renderer.domElement);
+            if (intersects.length > 0) {
+                const hit = intersects[0];
+                // Actualizar posición del decal al punto donde está el mouse
+                updateDecal(hit.point, hit.face.normal);
+            }
+        }
+
+        function onMouseUp() {
+            isDragging = false;
+            if (controls) controls.enabled = true; // Reactivar rotación de cámara
+            document.body.style.cursor = 'default';
+        }
+
+        // Event Listeners para controles
+        document.getElementById('product-select').addEventListener('change', (e) => createProduct(e.target.value));
+        
+        document.getElementById('base-color').addEventListener('input', (e) => {
+            if (currentMesh) {
+                if (currentMesh.isGroup) {
+                    currentMesh.traverse((node) => {
+                        if (node.isMesh) node.material.color.set(e.target.value);
+                    });
+                } else {
+                    currentMesh.material.color.set(e.target.value);
+                }
+            }
+        });
+
+        ['scale-x-slider', 'scale-y-slider', 'rotation-slider'].forEach(id => {
+            document.getElementById(id).addEventListener('input', () => updateDecal());
+        });
+
+        function onWindowResize() {
+            const container = document.getElementById('canvas-container');
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            if (controls) controls.update();
+            renderer.render(scene, camera);
+        }
+
+        // Iniciar cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', init3D);
+    </script>
+</body>
+</html>
